@@ -5,9 +5,17 @@ import joblib
 import pandas as pd
 import streamlit as st
 
-import text_utils  # noqa: F401  (needed so joblib can unpickle clean_text / ScratchLogReg)
+import text_utils
 
-MODELS_DIR = Path("models")
+BASE_DIR = Path(__file__).resolve().parent
+MODELS_DIR = BASE_DIR / "models"
+
+
+st.write("Models directory:", MODELS_DIR)
+st.write("Directory exists:", MODELS_DIR.exists())
+st.write("Files:", list(MODELS_DIR.glob("*")) if MODELS_DIR.exists() else [])
+
+
 LABELS = {0: "Not spam (ham)", 1: "SPAM"}
 FILES = {"Logistic Regression": "logistic_regression.joblib", "Linear SVM": "linear_svm.joblib",
          "Voting (soft)": "voting.joblib", "Stacking": "stacking.joblib",
